@@ -69,5 +69,3 @@ class HelloWorldWebSteps extends ScalaDsl with EN with WebBrowser with ShouldMat
     regex replaceFirstIn(currentUrl, "")
   }
 }
-
-//class CucumberSuite extends templemore.sbt.cucumber.RunCucumber
