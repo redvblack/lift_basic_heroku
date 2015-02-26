@@ -1,4 +1,0 @@
-db.class=org.postgresql.Driver
-db.url=jdbc:postgresql://ec2-107-21-93-97.compute-1.amazonaws.com/dfj057m65vlp3p
-db.user=ubamcpmzgilpqi
-db.pass=RuzdvaW-bl1DV2FHmkkNsqTHW6
