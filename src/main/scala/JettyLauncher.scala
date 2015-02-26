@@ -4,6 +4,9 @@ import org.eclipse.jetty.webapp.WebAppContext
 
 object JettyLauncher {
   def main(args: Array[String]) {
+    if (System.getProperty("run.mode") == null){
+      System.setProperty("run.mode", System.getenv("run.mode"))
+    }
     val port = if(System.getenv("PORT") != null) System.getenv("PORT").toInt else 8080
 
     val server = new Server(port)
