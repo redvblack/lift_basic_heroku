@@ -5,7 +5,7 @@ import org.scalatest.concurrent.Eventually._
 import org.scalatest.concurrent.Eventually.PatienceConfig
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.selenium.WebBrowser
-import code.cucumber.pages.{StaticContentPage, Homepage, SignUpPage}
+import code.cucumber.pages._
 import org.scalatest.time.SpanSugar
 import org.openqa.selenium.WebDriver
 import cucumber.api.Scenario
@@ -20,11 +20,15 @@ class HelloWorldWebSteps extends ScalaDsl with EN with WebBrowser with ShouldMat
 
   private val pagesByIdentifier = Map("home" -> Homepage,
                                       "Static Content" -> StaticContentPage,
-                                      "Sign Up" -> SignUpPage)
+                                      "Sign Up" -> SignUpPage,
+                                      "Login" -> LoginPage
+                                      )
 
   private val pagesByPath = Map(Homepage.path -> Homepage,
                                 StaticContentPage.path -> StaticContentPage
-                                , SignUpPage.path -> SignUpPage)
+                                , SignUpPage.path -> SignUpPage
+                                , LoginPage.path -> LoginPage
+                                )
 
 
   Before((scenario: Scenario) => {

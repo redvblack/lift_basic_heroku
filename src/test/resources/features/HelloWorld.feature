@@ -11,9 +11,3 @@ Feature: In order easily to set up new Lift projects
     When I click the "Static Content" link
     Then I should see the Static Content page
     And I should see the static content description text
-
-  Scenario: User signup page is available
-    Given I have browsed to the home page
-    When I click the "Sign Up" link
-    Then I should see the Sign Up page
-    And I should see the sign up text
