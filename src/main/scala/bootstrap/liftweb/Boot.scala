@@ -13,6 +13,7 @@ import net.liftweb.http.js.jquery._
 import mapper._
 import code.model._
 import java.net.URI
+import net.liftmodules.FoBo
 
 
 /**
@@ -70,8 +71,12 @@ class Boot {
 
     // set the sitemap.  Note if you don't want access control for
     // each page, just comment this line out.
-    LiftRules.setSiteMapFunc(() => sitemapMutators(sitemap))
-
+    LiftRules.setSiteMapFunc(() => sitemapMutators(Site.sitemap))
+    //Init the FoBo - Front-End Toolkit module, 
+    //see http://liftweb.net/lift_modules for more info
+    FoBo.InitParam.JQuery=FoBo.JQuery1102  
+    FoBo.InitParam.ToolKit=FoBo.Bootstrap320 
+    FoBo.init() 
     //Show the spinny image when an Ajax call starts
     LiftRules.ajaxStart =
       Full(() => LiftRules.jsArtifacts.show("ajax-loader").cmd)
@@ -83,14 +88,48 @@ class Boot {
     // Force the request to be UTF-8
     LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
 
+    LiftRules.early.append(_.setCharacterEncoding("UTF-8"))
+
+    // What is the function to test if a user is logged in?
+    LiftRules.loggedInTest = Full(() => User.loggedIn_?)
+    LiftRules.noticesAutoFadeOut.default.set( (notices: NoticeType.Value) => {
+        notices match {
+          case NoticeType.Notice => Full((8 seconds, 4 seconds))
+          case _ => Empty
+        }
+     }
+    ) 
     // Use HTML5 for rendering
     LiftRules.htmlProperties.default.set((r: Req) =>
       new Html5Properties(r.userAgent))
 
     //Init the jQuery module, see http://liftweb.net/jquery for more information.
-    LiftRules.jsArtifacts = JQueryArtifacts
-    JQueryModule.InitParam.JQuery=JQueryModule.JQuery172
-    JQueryModule.init()
-
+    // LiftRules.jsArtifacts = JQueryArtifacts
+    // JQueryModule.InitParam.JQuery=JQueryModule.JQuery172
+    // JQueryModule.init()
+  object Site {
+    import scala.xml._
+    val divider1   = Menu("divider1") / "divider1"
+    val ddLabel1   = Menu.i("UserDDLabel") / "ddlabel1"
+    val home       = Menu.i("Home") / "index" 
+    val userMenu   = User.AddUserMenusHere
+    val static     = Menu(Loc("Static", Link(List("static"), true, "/static/index"), S.loc("StaticContent" , scala.xml.Text("Static Content")),LocGroup("lg2","topRight")))
+   val twbs  = Menu(Loc("twbs", 
+        ExtLink("http://getbootstrap.com/"), 
+        S.loc("Bootstrap3", Text("Bootstrap3")), 
+        LocGroup("lg2"),
+        FoBo.TBLocInfo.LinkTargetBlank ))     
+    
+    
+    def sitemap = SiteMap(
+        home          >> LocGroup("lg1"),
+        static,
+        twbs,
+        ddLabel1      >> LocGroup("topRight") >> PlaceHolder submenus (
+            divider1  >> FoBo.TBLocInfo.Divider >> userMenu
+            )
+         )
   }
+}
+  
 }

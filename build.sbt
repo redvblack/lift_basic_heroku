@@ -23,6 +23,7 @@ libraryDependencies ++= {
     "net.liftweb"       %% "lift-webkit"        % liftVersion        % "compile",
     "net.liftweb"       %% "lift-mapper"        % liftVersion        % "compile",
     "net.liftmodules"   %% "lift-jquery-module_2.6" % "2.8",
+    "net.liftmodules"   %% "fobo_2.6"           % "1.3"     % "compile",
     "org.eclipse.jetty" % "jetty-webapp"        % "8.1.7.v20120910"  % "compile,container,test",
     "org.eclipse.jetty" % "jetty-plus"          % "8.1.7.v20120910"  % "compile,container,test", // For Jetty Config
     "org.eclipse.jetty.orbit" % "javax.servlet" % "3.0.0.v201112011016" % "compile,container,test" artifacts Artifact("javax.servlet", "jar", "jar"),
